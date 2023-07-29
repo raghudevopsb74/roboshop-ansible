@@ -3,7 +3,7 @@
   become: true
   tasks:
     - name: Configure Yum Repo for MySQL
-      ansible.builtin.copu:
+      ansible.builtin.copy:
         src: mysql.repo
         dest: /etc/yum.repos.d/mysql.repo
 
