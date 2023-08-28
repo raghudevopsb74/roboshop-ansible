@@ -9,5 +9,5 @@
     state: installed
 
 - name: Load Schema
-  ansible.builtin.shell: mongo --host mongodb-dev.rdevopsb72.online </app/schema/{{component}}.js
+  ansible.builtin.shell:  mongo --ssl --host {{ lookup('amazon.aws.aws_ssm', 'docdb.{{env}}.endpoint', region='us-east-1') }}:27017 --sslCAFile global-bundle.pem --username docdbadmin --password roboshop1234 </app/schema/{{component}}.js
 
