@@ -4,5 +4,5 @@
     state: installed
 
 - name: Load Schema
-  ansible.builtin.shell: mysql -h mysql-dev.rdevopsb72.online -uroot -pRoboShop@1 < /app/schema/{{component}}.sql
+  ansible.builtin.shell: mysql -h {{ lookup('amazon.aws.aws_ssm', '{{component}}.{{env}}.DB_HOST', region='us-east-1') }} -u{{ lookup('amazon.aws.aws_ssm', 'rds.{{env}}.master_username', region='us-east-1') }} -p{{ lookup('amazon.aws.aws_ssm', 'rds.{{env}}.master_password', region='us-east-1') }} < /app/schema/{{component}}.sql
 
