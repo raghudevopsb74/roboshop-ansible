@@ -1,0 +1,11 @@
+[Unit]
+Description=nginx_exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/nginx_exporter/nginx-prometheus-exporter -nginx.scrape-uri=http://localhost:80/health
+
+[Install]
+WantedBy=multi-user.target
