@@ -2,4 +2,6 @@
   ansible.builtin.import_tasks: logstash.yml
   when: elk_component == "logstash"
 
-
+- name: Load Filebeat
+  ansible.builtin.import_tasks: filebeat.yml
+  when: elk_component == "filebeat"
