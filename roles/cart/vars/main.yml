@@ -1,1 +1,3 @@
 component: cart
+log_type: json
+log_file: /var/log/cart.log

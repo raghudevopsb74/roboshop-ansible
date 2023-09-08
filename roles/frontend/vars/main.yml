@@ -1,1 +1,3 @@
 component: frontend
+log_type: raw
+log_file: /var/log/nginx/access.log

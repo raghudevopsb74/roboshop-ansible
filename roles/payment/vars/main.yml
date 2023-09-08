@@ -1,1 +1,3 @@
 component: payment
+log_type: raw
+log_file: /var/log/payment.log

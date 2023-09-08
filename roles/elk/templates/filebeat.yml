@@ -29,7 +29,7 @@ filebeat.inputs:
 
   # Paths that should be crawled and fetched. Glob based paths.
   paths:
-    - /var/log/nginx/access.log
+    - {{ log_file }}
     #- c:\programdata\elasticsearch\logs\*
 
   # Exclude lines. A list of regular expressions to match. It drops the lines that are
@@ -52,6 +52,7 @@ filebeat.inputs:
   # to add additional information to the crawled log files for filtering
   fields:
     component: {{ component }}
+    log_type: {{ log_type }}
 
 # ============================== Filebeat modules ==============================
 
