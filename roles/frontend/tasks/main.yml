@@ -23,11 +23,23 @@
     path: /usr/share/nginx/html
     state: directory
 
-- name: Download and extract application content
+#- name: Download and extract application content
+#  ansible.builtin.unarchive:
+#    src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
+#    dest: /usr/share/nginx/html
+#    remote_src: yes
+
+- name: Download and extract application content from Nexus
   ansible.builtin.unarchive:
-    src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
-    dest: /usr/share/nginx/html
+    src: http://{{username}}:{{password}}@172.31.24.24:8081/repository/{{component}}/{{component}}-{{appVersion}}.zip
+    dest: /app
     remote_src: yes
+  vars:
+    username: "{{ lookup('amazon.aws.aws_ssm', 'nexus.username', region='us-east-1') }}"
+    password: "{{ lookup('amazon.aws.aws_ssm', 'nexus.password', region='us-east-1') }}"
+    appVersion: "{{ lookup('amazon.aws.aws_ssm', '{{component}}.{{env}}.{{appVersion}}', region='us-east-1') }}"
+
+
 
 - name: Restart Nginx
   ansible.builtin.systemd:
