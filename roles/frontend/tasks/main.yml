@@ -32,7 +32,7 @@
 - name: Download and extract application content from Nexus
   ansible.builtin.unarchive:
     src: http://{{username}}:{{password}}@172.31.24.24:8081/repository/{{component}}/{{component}}-{{appVersion}}.zip
-    dest: /app
+    dest: /usr/share/nginx/html
     remote_src: yes
   vars:
     username: "{{ lookup('amazon.aws.aws_ssm', 'nexus.{{env}}.username', region='us-east-1') }}"
