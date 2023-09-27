@@ -1,10 +1,17 @@
+- name: Check nodejs is installed
+  ansible.builtin.shell: type npm
+  register: command_status
+  ignore_errors: yes
+
 - name: INstall NodeJS Repos
   ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+  when: command_status.rc != 0
 
 - name: Install NodeJS
   ansible.builtin.yum:
     name: nodejs
     state: installed
+  when: command_status.rc != 0
 
 - name: App Pre-requisites
   ansible.builtin.import_tasks: app-preq.yml
