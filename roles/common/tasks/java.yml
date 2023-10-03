@@ -16,6 +16,10 @@
 #  args:
 #    chdir: /app
 
+- name: Check DB exists already
+  ansible.builtin.shell: echo 'show databases' | mysql -h {{ lookup('amazon.aws.aws_ssm', '{{component}}.{{env}}.DB_HOST', region='us-east-1') }} -u{{ lookup('amazon.aws.aws_ssm', 'rds.{{env}}.master_username', region='us-east-1') }} -p{{ lookup('amazon.aws.aws_ssm', 'rds.{{env}}.master_password', region='us-east-1') }} | grep {{DBNAME}}
+  ignore_errors: yes
+
 - name: Schema Setup
   ansible.builtin.import_tasks: mysql-schema.yml
   when: schema is defined
